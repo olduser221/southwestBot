@@ -1,0 +1,16 @@
+{
+  "name": "southwestbot",
+  "version": "1.0.0",
+  "description": "Auto Checkin bot for Southwest Airlines",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Christopher Soscia",
+  "license": "MIT",
+  "dependencies": {
+    "dayjs": "^1.9.6",
+    "dotenv": "^8.2.0",
+    "node-fetch": "^2.6.1"
+  }
+}
