@@ -2,11 +2,11 @@ const fetch = require('node-fetch');
 const dayjs = require('dayjs');
 
 module.exports = class Southwest {
-    constructor(confirmation, firstName, lastName) {
+    constructor(confirmation, firstName, lastName, time) {
         this.confirmation = confirmation;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.checkinTime = {hour: 6, minute: 20};
+        this.checkinTime = {hour: parseInt(time.split(":")[0]), minute: parseInt(time.split(":")[1])};
     }
 
     async checkin() {
