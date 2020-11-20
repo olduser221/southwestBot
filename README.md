@@ -2,6 +2,8 @@
 
 Auto check in bot for Southwest Airlines.
 
+![Image of Confirmation](https://cdn.discordapp.com/attachments/649460201837035546/779378337436532766/unknown.png)
+
 ## Installation
 
 Use the package manager [npm](https://www.npmjs.com/) to install dependencies.
