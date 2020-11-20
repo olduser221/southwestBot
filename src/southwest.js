@@ -57,15 +57,17 @@ module.exports = class Southwest {
     async wait() {
         console.log(`[LOG][${this.confirmation}] Waiting til ${this.checkinTime.hour}:${this.checkinTime.minute}`);
 
-        const waiter = setInterval(async () => {
+        while (true) {
             const hour = dayjs().hour();
             const minute = dayjs().minute();
 
             if (hour >= this.checkinTime.hour && minute >= this.checkinTime.minute - 1) {
                 await this.checkin();
-                await clearInterval(waiter);
+                break;
             }
-        }, 1000);
+
+            await sleep(1000)
+        }
 
         return 0;
     }
