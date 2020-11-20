@@ -43,7 +43,7 @@ module.exports = class Southwest {
                 }
     
             } catch (error) {}
-        }, 1500);
+        }, 1000);
 
     }
 
@@ -52,8 +52,9 @@ module.exports = class Southwest {
         const waiter = setInterval(async () => {
             const hour = dayjs().hour();
             const minute = dayjs().minute();
+            const second = dayjs().second();
 
-            if (hour === this.checkinTime.hour && minute === this.checkinTime.minute - 1) {
+            if (hour === this.checkinTime.hour && minute === this.checkinTime.minute - 1 && second >= 40) {
                 await this.checkin();
                 clearInterval(waiter);
             }
