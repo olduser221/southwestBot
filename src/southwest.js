@@ -55,6 +55,7 @@ module.exports = class Southwest {
     }
 
     async wait() {
+
         console.log(`[LOG][${this.confirmation}] Waiting til ${this.checkinTime.hour}:${this.checkinTime.minute}`);
 
         while (true) {
@@ -66,10 +67,11 @@ module.exports = class Southwest {
                 break;
             }
 
-            await sleep(1000)
+            await sleep(1000);
         }
 
         return 0;
+
     }
 
 }
