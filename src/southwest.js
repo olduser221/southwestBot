@@ -1,5 +1,8 @@
 const fetch = require('node-fetch');
 const dayjs = require('dayjs');
+const { promisify } = require('util');
+const sleep = promisify(setTimeout);
+
 
 module.exports = class Southwest {
     constructor(confirmation, firstName, lastName, time) {
@@ -11,9 +14,10 @@ module.exports = class Southwest {
 
     async checkin() {
 
-        console.log(`[LOG][${this.confirmation}] Attempting to check in`)
+        console.log(`[LOG][${this.confirmation}] Attempting to check in`);
 
-        const checkin = setInterval(async () => {
+        while (true) {
+
             try {
 
                 const body = {
@@ -37,28 +41,33 @@ module.exports = class Southwest {
             
                 if (json.success === true) {
                     console.log(`[LOG][${this.confirmation}] Successfully checked in!`);
-                    clearInterval(checkin);
-                } else {
-                    console.log(`[LOG][${this.confirmation}] ${json.notifications.fieldErrors[0].code}`);
+                    break;
                 }
     
             } catch (error) {}
-        }, 1000);
+
+            await sleep(1000);
+
+        }
+
+        return 0;
 
     }
 
     async wait() {
         console.log(`[LOG][${this.confirmation}] Waiting til ${this.checkinTime.hour}:${this.checkinTime.minute}`);
+
         const waiter = setInterval(async () => {
             const hour = dayjs().hour();
             const minute = dayjs().minute();
-            const second = dayjs().second();
 
-            if (hour === this.checkinTime.hour && minute === this.checkinTime.minute - 1 && second >= 40) {
+            if (hour >= this.checkinTime.hour && minute >= this.checkinTime.minute - 1) {
                 await this.checkin();
-                clearInterval(waiter);
+                await clearInterval(waiter);
             }
         }, 1000);
+
+        return 0;
     }
 
 }
